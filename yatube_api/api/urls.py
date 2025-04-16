@@ -4,8 +4,8 @@ from rest_framework import routers
 from .views import PostView, GroupViewSet, CommentViewSet
 
 router = routers.DefaultRouter()
-router.register(r'api/v1/posts', PostView)
-router.register(r'api/v1/groups', GroupViewSet)
+router.register(r'posts', PostView)
+router.register(r'groups', GroupViewSet)
 
 comment_list = CommentViewSet.as_view({
     'get': 'list',
@@ -20,10 +20,10 @@ comment_detail = CommentViewSet.as_view({
 })
 
 urlpatterns = [
-    path('api/v1/api-token-auth/', views.obtain_auth_token),
-    path('', include(router.urls)),
-    path('api/v1/posts/<int:post_id>/comments/',
+    path('v1/api-token-auth/', views.obtain_auth_token),
+    path('v1/', include(router.urls)),
+    path('v1/posts/<int:post_id>/comments/',
          comment_list, name='comment-list'),
-    path('api/v1/posts/<int:post_id>/comments/<int:pk>/',
+    path('v1/posts/<int:post_id>/comments/<int:pk>/',
          comment_detail, name='comment-detail'),
 ]
